@@ -1,11 +1,43 @@
-# BorrowBuddy React frontend
+# BorrowBuddy — frontend
 
-The BorrowBuddy UI is a React 18 single-page app built with Vite and React Router. It talks to the Spring Boot REST API and reuses the BorrowBuddy CSS design system.
+The BorrowBuddy UI: a React 18 single-page app built with Vite and React Router.
+It talks to the Spring Boot API in
+[borrow-buddy-backend](https://github.com/Harshavardhan-15/borrow-buddy-backend).
+
+BorrowBuddy is a campus borrow-and-lend platform. Students list items they own,
+request items from other students, hand items over with a QR code, and review
+each other afterwards.
+
+## Screenshots
+
+| Home | Browse items |
+| --- | --- |
+| ![Home](docs/screenshots/home.png) | ![Browse](docs/screenshots/browse-items.png) |
+
+| Dashboard | Item details |
+| --- | --- |
+| ![Dashboard](docs/screenshots/dashboard.png) | ![Item details](docs/screenshots/item-details.png) |
+
+| Borrow requests | Profile |
+| --- | --- |
+| ![Requests](docs/screenshots/borrow-requests.png) | ![Profile](docs/screenshots/profile.png) |
+
+| Notifications | Ratings and reviews |
+| --- | --- |
+| ![Notifications](docs/screenshots/notifications.png) | ![Reviews](docs/screenshots/reviews.png) |
+
+| Add / edit item | Borrowing history |
+| --- | --- |
+| ![Add item](docs/screenshots/add-item.png) | ![History](docs/screenshots/borrowing-history.png) |
+
+| Login | Registration |
+| --- | --- |
+| ![Login](docs/screenshots/login.png) | ![Register](docs/screenshots/register.png) |
 
 ## Requirements
 
 - Node.js 20+ and npm 10+
-- The backend running on `http://localhost:8080` for local development
+- The API running on `http://localhost:8080` for local development
 
 ## Development
 
@@ -14,7 +46,8 @@ npm ci
 npm run dev
 ```
 
-Open `http://localhost:5173`. Vite proxies `/api` and `/uploads` to the backend, so no extra configuration is needed.
+Open `http://localhost:5173`. Vite proxies `/api` and `/uploads` to the backend,
+so no extra configuration is needed.
 
 ## Production build
 
@@ -22,27 +55,39 @@ Open `http://localhost:5173`. Vite proxies `/api` and `/uploads` to the backend,
 npm run build
 ```
 
-The bundle is written to `dist/`. The backend's Maven build copies this folder into the Spring Boot jar (`target/classes/static`), and `SpaController` forwards client-side routes to `index.html`.
+The bundle is written to `dist/`. Serve it from any static host; React Router
+paths are rewritten to `index.html`.
 
-To package the whole application:
+## Deploying to Vercel
 
-```powershell
-npm run build
-cd ..\backend
-mvn clean package
-java -jar target\borrowbuddy-1.0.0.jar
-```
+`vercel.json` is included. It installs dependencies, builds the app, publishes
+`dist/`, rewrites unknown paths to `index.html`, and sets security and caching
+headers.
 
-## Deploying separately
+1. **Add New → Project** and import this repository.
+2. Keep the root directory at the repository root.
+3. Add an environment variable `VITE_API_BASE` set to the deployed API origin,
+   for example `https://borrowbuddy-api.onrender.com`.
+4. Deploy.
 
-Set `VITE_API_BASE` before building when Vercel, Netlify or another host serves the UI:
+Then add this site's origin to the backend's `FRONTEND_URL` CORS list and
+redeploy the backend.
 
-```powershell
-$env:VITE_API_BASE="https://borrowbuddy-api.onrender.com"
-npm run build
-```
+### Preview deployments
 
-Then add the frontend origin to the backend's `FRONTEND_URL` CORS list. See `../docs/DEPLOYMENT.md`.
+Vercel preview deployments use a different hostname on every push. The backend
+allows only the exact origins in `FRONTEND_URL`, so add a preview domain there
+temporarily if you need to test one.
+
+## Configuration
+
+| Variable | When | Notes |
+| --- | --- | --- |
+| `VITE_API_BASE` | Production | API origin, baked in at build time. Leave empty when the API serves the SPA from the same origin. |
+
+Uploaded images are returned as `/uploads/<file>` and resolved against
+`VITE_API_BASE`, so they load from the API host when the app is hosted
+separately.
 
 ## Structure
 
@@ -60,4 +105,7 @@ src/
 
 ## Windows note
 
-This environment blocks Rollup's native `.node` binary with an Application Control policy. `package.json` therefore aliases `rollup` to `@rollup/wasm-node`, which produces the same bundle without the native module. The alias is harmless on Linux, macOS and CI.
+Some Windows environments block Rollup's native `.node` binary with an
+Application Control policy. `package.json` therefore aliases `rollup` to
+`@rollup/wasm-node`, which produces the same bundle without the native module.
+The alias is harmless on Linux, macOS and CI.
