@@ -427,10 +427,6 @@ h1, h2, h3, h4, h5, .fw-800 { font-weight: 800; letter-spacing: -0.02em; }
 .auth-main { display: grid; place-items: center; padding: 2.2rem 1.2rem; background: #fff; }
 .auth-card { width: 100%; max-width: 440px; }
 .auth-card h1 { font-size: 1.85rem; }
-.auth-demo {
-  background: #f8fbff; border: 1px dashed #cfdff4; border-radius: 12px;
-  padding: .7rem .85rem; font-size: .78rem; color: var(--bb-muted);
-}
 @media (max-width: 991.98px) {
   .auth-shell { grid-template-columns: 1fr; }
   .auth-side { padding: 2rem 1.4rem; min-height: auto; }

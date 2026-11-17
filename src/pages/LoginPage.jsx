@@ -47,14 +47,6 @@ export default function LoginPage() {
     if (isLoggedIn && !expired) navigate("/dashboard", { replace: true });
   }, [isLoggedIn, expired, navigate]);
 
-  function fillDemo() {
-    setEmail("aarav@college.edu");
-    setPassword("Password123");
-    setFieldErrors({});
-    setFormError("");
-    toast("Demo credentials filled in.", "success");
-  }
-
   async function submit(event) {
     event.preventDefault();
     setFieldErrors({});
@@ -183,18 +175,6 @@ export default function LoginPage() {
           Sign in
         </button>
       </form>
-
-      <div className="auth-demo mt-4">
-        <div className="fw-bold text-ink mb-1">
-          <i className="bi bi-lightning-charge me-1 text-warning" /> Demo account
-        </div>
-        <div>
-          <code>aarav@college.edu</code> · <code>Password123</code>
-        </div>
-        <button className="btn btn-sm btn-bb-soft mt-2" type="button" onClick={fillDemo}>
-          Fill demo credentials
-        </button>
-      </div>
 
       <p className="text-center text-muted-2 mt-4 mb-0" style={{ fontSize: ".88rem" }}>
         New to BorrowBuddy?{" "}
