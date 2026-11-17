@@ -8,6 +8,16 @@ BorrowBuddy is a campus borrow-and-lend platform. Students list items they own,
 request items from other students, hand items over with a QR code, and review
 each other afterwards.
 
+## Live demo
+
+<https://borrowbuddy-lyart.vercel.app>
+
+The app is hosted on Vercel and talks to the Spring Boot API on Render at
+`https://borrowbuddy-api-zeu2.onrender.com`. Sign in with a demo account
+(password `Password123`): `aarav@college.edu`, `priya@college.edu`,
+`rohan@college.edu` or `sara@college.edu`. The API sleeps after 15 minutes of
+inactivity, so the first request can take 30–60 seconds.
+
 ## Screenshots
 
 | Home | Browse items |
@@ -63,6 +73,11 @@ paths are rewritten to `index.html`.
 `vercel.json` is included. It installs dependencies, builds the app, publishes
 `dist/`, rewrites unknown paths to `index.html`, and sets security and caching
 headers.
+
+This repository is already linked to the **borrowbuddy** Vercel project
+(production branch `main`, live at <https://borrowbuddy-lyart.vercel.app>), so a
+push to `main` redeploys it with the stored `VITE_API_BASE`. To set it up from
+scratch:
 
 1. **Add New → Project** and import this repository.
 2. Keep the root directory at the repository root.
