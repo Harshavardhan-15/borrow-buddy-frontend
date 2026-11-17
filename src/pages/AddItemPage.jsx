@@ -4,6 +4,7 @@ import { api } from "../api/client.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { useToast } from "../context/ToastContext.jsx";
 import LoadingBlock from "../components/LoadingBlock.jsx";
+import { imageUrl } from "../utils/format.js";
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const CATEGORIES = ["Electronics", "Books", "Lab Equipment", "Sports", "Stationery"];
@@ -483,7 +484,7 @@ export default function AddItemPage() {
                     }}
                   >
                     <img
-                      src={preview}
+                      src={imageUrl(preview)}
                       alt="Item preview"
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />

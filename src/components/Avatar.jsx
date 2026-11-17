@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { initials } from "../utils/format.js";
+import { imageUrl, initials } from "../utils/format.js";
 
 export default function Avatar({ url, name, sizeClass = "", className = "bb-avatar" }) {
   const [failedUrl, setFailedUrl] = useState(null);
@@ -9,7 +9,7 @@ export default function Avatar({ url, name, sizeClass = "", className = "bb-avat
     return (
       <img
         className={classes}
-        src={url}
+        src={imageUrl(url)}
         alt={name || "Student"}
         onError={() => setFailedUrl(url)}
       />

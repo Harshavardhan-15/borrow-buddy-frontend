@@ -1,3 +1,5 @@
+import { api } from "../api/client.js";
+
 const STATUS_LABELS = {
   PENDING: "Pending",
   APPROVED: "Approved",
@@ -99,8 +101,16 @@ export function conditionLabel(condition) {
 
 export const PLACEHOLDER_IMAGE = "/assets/item-placeholder.svg";
 
+/**
+ * Resolves a stored image path for the current deployment.
+ * Uploaded images are served by the backend, so when the React app is hosted
+ * on a different origin (Vercel/Netlify) their relative `/uploads/...` paths
+ * must be prefixed with the API origin. Absolute URLs pass through unchanged.
+ */
 export function imageUrl(url) {
-  return url || PLACEHOLDER_IMAGE;
+  if (!url) return PLACEHOLDER_IMAGE;
+  if (url.startsWith("/uploads/")) return api.base + url;
+  return url;
 }
 
 // Swaps a broken upload for the bundled placeholder. The data flag prevents an

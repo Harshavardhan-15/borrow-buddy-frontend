@@ -10,7 +10,7 @@ import ItemCard from "../components/ItemCard.jsx";
 import EmptyState from "../components/EmptyState.jsx";
 import LoadingBlock from "../components/LoadingBlock.jsx";
 import Modal from "../components/Modal.jsx";
-import { formatDate, timeAgo } from "../utils/format.js";
+import { formatDate, imageUrl, timeAgo } from "../utils/format.js";
 
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;
 const PLACEHOLDER = "/assets/item-placeholder.svg";
@@ -398,7 +398,7 @@ export default function ProfilePage() {
         <form id="editProfileForm" onSubmit={saveProfile} noValidate>
           <div className="text-center mb-3">
             <img
-              src={editPreview}
+              src={imageUrl(editPreview)}
               alt="Profile preview"
               style={{
                 width: 84,
